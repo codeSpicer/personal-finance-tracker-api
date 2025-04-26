@@ -14,6 +14,9 @@ A secure backend system for personal finance management with budgeting analytics
 - Behavioral scoring system
 - Notification system
 - Transaction ledger with reversal capability
+- OTP-based email verification
+- Role-based access control (User/Admin)
+- Audit logging for security events
 
 ## Technologies
 
@@ -59,17 +62,17 @@ A secure backend system for personal finance management with budgeting analytics
    docker-compose up -d postgres
    ```
 
-    Run migrations
+   Run migrations
 
-    ```bash
-    npx prisma migrate dev --name init
-    ```
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 
-    Generate Prisma client
+   Generate Prisma client
 
-    ```bash
-    npx prisma generate
-    ```
+   ```bash
+   npx prisma generate
+   ```
 
 5. Start the development server
    ```bash
@@ -90,11 +93,28 @@ A secure backend system for personal finance management with budgeting analytics
 └── .env.example      # Environment template
 ```
 
+# Development
+
+npm run dev # Start development server with nodemon
+npm run start # Start production server
+npm run build # Build TypeScript to JavaScript
+
+# Database Operations
+
+npm run db:migrate # Run Prisma migrations
+npm run db:generate # Generate Prisma client
+npm run prisma:seed # Seed the database
+npm run db:reset # Reset the database
+npm run db:studio # Open Prisma Studio
+npm run db:deploy # Deploy migrations in production
+npm run db:setup # Complete setup (generate, migrate, seed)
+
 <!-- ## API Documentation -->
 
 <!-- [Add your Swagger/Postman documentation link here] -->
 
 ## commit messages
+
 ```
 -feat: add new feature
 -fix: bug fix

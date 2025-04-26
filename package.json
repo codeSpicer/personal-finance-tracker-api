@@ -8,7 +8,7 @@
     "build": "tsc",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:seed": "ts-node prisma/seed.ts",
+    "prisma:seed": "ts-node prisma/seed.ts",
     "db:reset": "prisma migrate reset",
     "db:studio": "prisma studio",
     "db:deploy": "prisma migrate deploy",
