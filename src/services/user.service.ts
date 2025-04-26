@@ -2,7 +2,7 @@ import { PrismaClient } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { config } from '../config';
-import { IUserCreate, IUserLogin } from '../types/user.types';
+import { IUserCreate, IUserEmail, IUserLogin } from '../types/user.types';
 
 const prisma = new PrismaClient();
 
@@ -63,5 +63,40 @@ export class UserService {
     );
 
     return { user: { id: user.id, email: user.email }, token };
+  }
+
+  static async makeAdmin(userData: IUserEmail, callerUserId: number) {
+    // First verify if the caller is an admin
+    const callerUser = await prisma.user.findUnique({
+      where: { id: callerUserId },
+    });
+
+    if (!callerUser || callerUser.role !== 'ADMIN') {
+      throw new Error('Unauthorized: Only admins can promote users to admin role');
+    }
+
+    // Find the target user
+    const targetUser = await prisma.user.findUnique({
+      where: { email: userData.email },
+    });
+
+    if (!targetUser) {
+      throw new Error('User does not exist.');
+    }
+
+    // Update the user role to admin
+    const updatedUser = await prisma.user.update({
+      where: { id: targetUser.id },
+      data: { role: 'ADMIN' },
+    });
+
+    return {
+      message: 'User role updated successfully',
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        role: updatedUser.role
+      }
+    };
   }
 }

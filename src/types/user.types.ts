@@ -15,6 +15,14 @@ export interface IUser {
     email: string;
     password: string;
   }
+
+  export interface IUserEmail {
+    email: string;
+  }
+
+  export interface ICallerUserId{
+    userId: number
+  }
   
   export enum UserRole {
     USER = 'USER',

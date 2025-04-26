@@ -9,14 +9,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserAction {
+  LOGIN
+  SIGNUP
+  LOGOUT
+  PASSWORD_CHANGE
+  LOGIN_FAILED 
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role      UserRole  @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   expenses  Expense[]
   budgets   Budget[]
+  auditLogs AuditLog[]
 }
 
 model Expense {
@@ -36,4 +51,14 @@ model Budget {
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  action    UserAction    
+  ipAddress String?
+  userAgent String?
+  timestamp DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id])
 }

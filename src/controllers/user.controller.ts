@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
-import { UserService } from '../services/user.service';
+import { Request, Response } from "express";
+import { UserService } from "../services/user.service";
+import { AuthRequest } from "../middleware/auth.middleware";
 
 export class UserController {
   static async register(req: Request, res: Response) {
@@ -11,7 +12,7 @@ export class UserController {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
       } else {
-        res.status(400).json({ message: 'An unknown error occurred' });
+        res.status(400).json({ message: "An unknown error occurred" });
       }
     }
   }
@@ -22,11 +23,34 @@ export class UserController {
       const result = await UserService.login({ email, password });
       res.status(200).json(result);
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ message: error.message });
-          } else {
-            res.status(400).json({ message: 'An unknown error occurred' });
-          }
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(400).json({ message: "An unknown error occurred" });
+      }
+    }
+  }
+
+  static async makeAdmin(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { email } = req.body;
+      const callerUserId = req.user?.id;
+
+      if (!callerUserId) {
+        res.status(401).json({ message: "Authentication required" });
+        return;
+      }
+
+      const result = await UserService.makeAdmin({ email }, callerUserId);
+      res.status(200).json(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes("Unauthorized")) {
+          res.status(403).json({ message: error.message });
+        } else {
+          res.status(400).json({ message: error.message });
+        }
+      }
     }
   }
 }
