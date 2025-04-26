@@ -1,6 +1,10 @@
-# Personal Finance Tracker API
+# 💰 Personal Finance Tracker API
 
-A backend system for tracking personal finances with user authentication, expense management, budgeting, and behavioral scoring.
+![Node.js](https://img.shields.io/badge/Node.js-18-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
+![Prisma](https://img.shields.io/badge/Prisma-5-purple)
+
+A secure backend system for personal finance management with budgeting analytics and behavioral scoring.
 
 ## Features
 
@@ -21,10 +25,17 @@ A backend system for tracking personal finances with user authentication, expens
 
 ## Setup
 
+### Prerequisites
+
+- Docker Desktop
+- Node.js 18+
+- PostgreSQL 15
+
 1. Clone the repository
 
    ```bash
    git clone https://github.com/your-username/finance-tracker-prisma.git
+   cd finance-tracker-prisma
    ```
 
 2. Install dependencies
@@ -42,21 +53,49 @@ A backend system for tracking personal finances with user authentication, expens
 
 4. Run database migrations
 
+   Start PostgreSQL container
+
    ```bash
-   npx prisma migrate dev
+   docker-compose up -d postgres
    ```
+
+    Run migrations
+
+    ```bash
+    npx prisma migrate dev --name init
+    ```
+
+    Generate Prisma client
+
+    ```bash
+    npx prisma generate
+    ```
 
 5. Start the development server
    ```bash
    npm run dev
    ```
 
-## API Documentation
+## Project Structure
 
-[Add your Swagger/Postman documentation link here]
+```bash
+/
+├── prisma/           # Database schema and migrations
+├── src/              # Application source code
+│   ├── controllers/  # Route handlers
+│   ├── services/     # Business logic
+│   ├── models/       # Data models
+│   └── app.ts        # Main application entry
+├── docker/           # Docker configurations
+└── .env.example      # Environment template
+```
+
+<!-- ## API Documentation -->
+
+<!-- [Add your Swagger/Postman documentation link here] -->
 
 ## commit messages
-
+```
 -feat: add new feature
 -fix: bug fix
 -docs: documentation changes
@@ -64,3 +103,4 @@ A backend system for tracking personal finances with user authentication, expens
 -refactor: code restructuring
 -test: adding tests
 -chore: maintenance tasks
+```

@@ -15,6 +15,7 @@ dist/
 
 # Prisma
 /generated
+generated
 
 # macOS
 .DS_Store
