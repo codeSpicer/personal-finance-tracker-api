@@ -5,7 +5,14 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "start": "node dist/app.js",
-    "build": "tsc"
+    "build": "tsc",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:seed": "ts-node prisma/seed.ts",
+    "db:reset": "prisma migrate reset",
+    "db:studio": "prisma studio",
+    "db:deploy": "prisma migrate deploy",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed"
   },
   "keywords": [],
   "author": "",
