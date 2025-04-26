@@ -53,4 +53,32 @@ export class UserController {
       }
     }
   }
+
+  static async sendOTP(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+      const result = await UserService.sendOTP(email);
+      res.status(200).json(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(400).json({ message: "An unknown error occurred" });
+      }
+    }
+  }
+
+  static async verifyOTP(req: Request, res: Response) {
+    try {
+      const { email, otp } = req.body;
+      const result = await UserService.verifyOTP({ email, otp });
+      res.status(200).json(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(400).json({ message: "An unknown error occurred" });
+      }
+    }
+  }
 }
