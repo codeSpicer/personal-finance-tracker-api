@@ -62,21 +62,20 @@ A secure backend system for personal finance management with budgeting analytics
    docker-compose up -d postgres
    ```
 
-   Run migrations
+   Run db setup (generate, migrate, seed)
 
    ```bash
-   npx prisma migrate dev --name init
-   ```
-
-   Generate Prisma client
-
-   ```bash
-   npx prisma generate
+   npm run db:setup
    ```
 
 5. Start the development server
    ```bash
    npm run dev
+   ```
+
+6. Run prisma studio to see database data
+   ```bash
+   npm run db:studio
    ```
 
 ## Project Structure
@@ -94,6 +93,7 @@ A secure backend system for personal finance management with budgeting analytics
 ```
 
 # Development
+
 ```
 npm run dev # Start development server with nodemon
 npm run start # Start production server
@@ -101,6 +101,7 @@ npm run build # Build TypeScript to JavaScript
 ```
 
 # Database Operations
+
 ```
 npm run db:migrate # Run Prisma migrations
 npm run db:generate # Generate Prisma client
