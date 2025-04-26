@@ -38,13 +38,15 @@ model User {
 }
 
 model Expense {
-  id        Int      @id @default(autoincrement())
-  amount    Float
-  date      DateTime
-  category  String
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  date        DateTime
+  category    String
+  tags        String[]
+  notes       String?
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model Budget {

@@ -94,13 +94,14 @@ A secure backend system for personal finance management with budgeting analytics
 ```
 
 # Development
-
+```
 npm run dev # Start development server with nodemon
 npm run start # Start production server
 npm run build # Build TypeScript to JavaScript
+```
 
 # Database Operations
-
+```
 npm run db:migrate # Run Prisma migrations
 npm run db:generate # Generate Prisma client
 npm run prisma:seed # Seed the database
@@ -108,6 +109,7 @@ npm run db:reset # Reset the database
 npm run db:studio # Open Prisma Studio
 npm run db:deploy # Deploy migrations in production
 npm run db:setup # Complete setup (generate, migrate, seed)
+```
 
 <!-- ## API Documentation -->
 
