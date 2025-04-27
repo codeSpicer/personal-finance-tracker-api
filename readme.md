@@ -1,4 +1,6 @@
-# 💰 Personal Finance Tracker API
+# Personal Finance Tracker API
+
+[View Design Documentation](./design.md) for detailed information about the system architecture and scoring logic.
 
 ![Node.js](https://img.shields.io/badge/Node.js-18-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
