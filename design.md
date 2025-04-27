@@ -82,7 +82,8 @@ The Personal Finance Tracker API follows a layered architecture pattern with cle
 
 ### 3.1 Entity Relationship Diagram
 
-![Untitled](https://github.com/user-attachments/assets/0afddf1a-3303-4f58-bc63-685244cfbb60)
+![db-diagram-personal-finance-tracker](https://github.com/user-attachments/assets/33cf2d8d-9f71-4b5f-910e-a614efac9db0)
+
 
 ### 3.2 Core Entities
 
