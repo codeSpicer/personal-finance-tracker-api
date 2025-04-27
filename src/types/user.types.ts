@@ -38,3 +38,15 @@ export interface IOTPResponse {
   message: string;
   email: string;
 }
+
+
+export interface INotificationPayload {
+  userId: number;
+  type: "OVERSPEND" | "INACTIVITY";
+  data: {
+    category?: string;
+    daysInactive?: number;
+    overspentAmount?: number;
+  };
+  timestamp: Date;
+}

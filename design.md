@@ -204,3 +204,20 @@ The scoring system is implemented in the `ScoreService` class, which provides:
 - `getUserAnalytics()`: Provides comprehensive analytics including score, budget utilization, and spending summary
 
 The score is recalculated in real-time whenever the user views their analytics, ensuring the most up-to-date evaluation of their financial habits.
+
+## 5. Notification Engine
+
+The notification system monitors user behavior and sends alerts based on specific triggers.
+
+### 5.1 Scheduled Jobs
+
+The system uses node-cron to schedule two main monitoring tasks:
+
+1. **Overspending Check (Daily at midnight)**
+   - Scans all user budgets
+   - Compares monthly spending against budget limits
+   - Triggers notifications for exceeded budgets
+
+2. **Inactivity Check (Daily at 1 AM)**
+   - Identifies users without expense entries for 5+ days
+   - Sends reminder notifications to encourage regular tracking
