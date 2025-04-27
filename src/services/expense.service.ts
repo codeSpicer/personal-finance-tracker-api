@@ -1,4 +1,5 @@
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient, TransactionType } from "../generated/prisma";
+import { TransactionService } from "./transaction.service";
 
 const prisma = new PrismaClient();
 
@@ -29,11 +30,23 @@ export class ExpenseService {
       data.category ||
       (data.notes ? this.autoCategorize(data.notes) : "Uncategorized");
 
-    return prisma.expense.create({
-      data: {
-        ...data,
-        category,
-      },
+    return prisma.$transaction(async (tx) => {
+      const expense = await tx.expense.create({
+        data: {
+          ...data,
+          category,
+        },
+      });
+
+      // Log the transaction
+      await TransactionService.logTransaction({
+        userId: data.userId,
+        expenseId: expense.id,
+        transactionType: TransactionType.CREATE,
+        newData: expense,
+      });
+
+      return expense;
     });
   }
 
@@ -61,9 +74,21 @@ export class ExpenseService {
       data.category = this.autoCategorize(data.notes);
     }
 
-    return prisma.expense.update({
-      where: { id },
-      data,
+    return prisma.$transaction(async (tx) => {
+      const updatedExpense = await tx.expense.update({
+        where: { id },
+        data,
+      });
+
+      await TransactionService.logTransaction({
+        userId,
+        expenseId: id,
+        transactionType: TransactionType.UPDATE,
+        oldData: expense,
+        newData: updatedExpense,
+      });
+
+      return updatedExpense;
     });
   }
 
@@ -76,8 +101,19 @@ export class ExpenseService {
       throw new Error("Expense not found or unauthorized");
     }
 
-    return prisma.expense.delete({
-      where: { id },
+    return prisma.$transaction(async (tx) => {
+      await tx.expense.delete({
+        where: { id },
+      });
+
+      await TransactionService.logTransaction({
+        userId,
+        expenseId: id,
+        transactionType: TransactionType.DELETE,
+        oldData: expense,
+      });
+
+      return { success: true };
     });
   }
 

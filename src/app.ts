@@ -7,6 +7,7 @@ import userRoutes from './routes/user.routes';
 import expenseRoutes from './routes/expense.routes';
 import budgetRoutes from './routes/budget.routes';
 import analyticsRoutes from "./routes/analytics.routes";
+import transactionRoutes from "./routes/transaction.routes";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/budgets', budgetRoutes);
 app.use("/api/analytics", analyticsRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 // Error handling
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

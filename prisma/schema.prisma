@@ -22,6 +22,25 @@ enum UserAction {
   LOGIN_FAILED 
 }
 
+enum TransactionType {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+model TransactionLedger {
+  id            Int             @id @default(autoincrement())
+  userId        Int
+  expenseId     Int?
+  transactionType TransactionType
+  oldData       Json?           // Store previous state for reversals
+  newData       Json?           // Store new state for reference
+  createdAt     DateTime        @default(now())
+  isReversed    Boolean         @default(false)
+  reversedAt    DateTime?
+  user          User            @relation(fields: [userId], references: [id])
+}
+
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
@@ -35,6 +54,7 @@ model User {
   expenses  Expense[]
   budgets   Budget[]
   auditLogs AuditLog[]
+  transactions TransactionLedger[] 
 }
 
 model Expense {

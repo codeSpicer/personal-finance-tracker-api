@@ -8,6 +8,9 @@ async function main() {
   await prisma.auditLog.deleteMany({});
   await prisma.expense.deleteMany({});
   await prisma.budget.deleteMany({});
+
+  await prisma.transactionLedger.deleteMany({});
+
   await prisma.user.deleteMany({});
 
   // Create admin user

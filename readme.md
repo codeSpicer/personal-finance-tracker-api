@@ -100,18 +100,6 @@ npm run start # Start production server
 npm run build # Build TypeScript to JavaScript
 ```
 
-# Database Operations
-
-```
-npm run db:migrate # Run Prisma migrations
-npm run db:generate # Generate Prisma client
-npm run prisma:seed # Seed the database
-npm run db:reset # Reset the database
-npm run db:studio # Open Prisma Studio
-npm run db:deploy # Deploy migrations in production
-npm run db:setup # Complete setup (generate, migrate, seed)
-```
-
 <!-- ## API Documentation -->
 
 <!-- [Add your Swagger/Postman documentation link here] -->
