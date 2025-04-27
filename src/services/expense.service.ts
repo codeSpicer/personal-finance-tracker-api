@@ -7,7 +7,7 @@ const categoryRules = [
     pattern: /restaurant|breakfast|lunch|brunch|snacks|coffee|food|dining/i,
     category: "Food",
   },
-  { pattern: /cab|bus|fuel|petrol|uber|ola|taxi/i, category: "Transportation" },
+  { pattern: /cab|bus|fuel|petrol|uber|ola|taxi|travel/i, category: "Transportation" },
   { pattern: /amazon|flipkart|shopping|store/i, category: "Shopping" },
 ];
 
