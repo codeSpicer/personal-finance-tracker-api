@@ -84,7 +84,6 @@ The Personal Finance Tracker API follows a layered architecture pattern with cle
 
 ![Untitled](https://github.com/user-attachments/assets/0afddf1a-3303-4f58-bc63-685244cfbb60)
 
-
 ### 3.2 Core Entities
 
 1. **User**
@@ -147,3 +146,61 @@ The Personal Finance Tracker API follows a layered architecture pattern with cle
   - (userId, category) on Expense table
   - (userId, date) on Expense table for date range queries
   - (userId, transactionType) on TransactionLedger
+
+# Personal Finance Tracker API Design
+
+## 4. Scoring System
+
+The Personal Finance Tracker includes a comprehensive scoring system to help users track their financial discipline and progress. The scoring system evaluates users based on three key metrics:
+
+### 4.1 Score Components
+
+The total score (out of 100) is calculated based on the following components:
+
+1. **Budget Adherence (30 points)**
+
+   - Measures how well users stay within their defined budgets
+   - Starting with a maximum of 30 points
+   - Points are deducted based on budget overages
+   - For each category where spending exceeds the budget, points are reduced proportionally to the overage amount
+   - Formula: `30 - (sum of (spent - limit) / limit * 10)`
+   - A perfect score requires staying within all budget limits
+
+2. **Usage Frequency (30 points)**
+
+   - Measures how regularly the user tracks expenses
+   - Based on the number of unique days in the month with recorded expenses
+   - Formula: `(uniqueDays / daysInMonth) * 30`
+   - Maximum of 30 points for daily tracking
+   - Encourages consistent expense tracking throughout the month
+
+3. **Tracking Discipline (40 points)**
+   - Measures the quality and detail of expense tracking
+   - Based on the use of notes and tags for expenses
+   - Formula: `((expenses with notes + expenses with tags) / (total expenses * 2)) * 40`
+   - Maximum of 40 points when all expenses have both notes and tags
+   - Encourages detailed expense documentation
+
+### 4.2 Score Calculation
+
+The system calculates scores on a monthly basis, considering:
+
+- All expenses within the current month
+- All budgets set by the user
+- Activity patterns throughout the month
+
+### 4.3 Score Interpretation
+
+- **90-100**: Excellent financial discipline
+- **70-89**: Good financial habits with room for improvement
+- **50-69**: Average financial management
+- **Below 50**: Needs significant improvement in financial tracking and discipline
+
+### 4.4 Implementation Details
+
+The scoring system is implemented in the `ScoreService` class, which provides:
+
+- `calculateUserScore()`: Calculates the raw score and breakdown
+- `getUserAnalytics()`: Provides comprehensive analytics including score, budget utilization, and spending summary
+
+The score is recalculated in real-time whenever the user views their analytics, ensuring the most up-to-date evaluation of their financial habits.
